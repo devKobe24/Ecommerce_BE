@@ -1,0 +1,78 @@
+name: Flyway Migrate
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'user-service/src/main/resources/db/migration/**'
+      - 'product-service/src/main/resources/db/migration/**'
+
+jobs:
+  flyway-migration:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ecommerce_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ✅ DB 연결 확인 (선택)
+      - name: Check DB Connection
+        run: |
+          until mysqladmin ping -h 127.0.0.1 -P 3306 -u${{ secrets.MYSQL_USER }} -p${{ secrets.MYSQL_PASSWORD }} --silent; do
+            echo "Waiting for MySQL..."
+            sleep 3
+          done
+
+      # ✅ user-service 마이그레이션
+      - name: Flyway migrate - user-service
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/user-service/src/main/resources/db/migration:/flyway/sql \
+            flyway/flyway:9.22.3 \
+            -url=jdbc:mysql://host.docker.internal:3306/ecommerce_db \
+            -user=${{ secrets.MYSQL_USER }} \
+            -password=${{ secrets.MYSQL_PASSWORD }} \
+            -locations=filesystem:/flyway/sql \
+            -schemas=user_service \
+            -baselineOnMigrate=false \
+            migrate
+
+      # ✅ product-service 마이그레이션
+      - name: Flyway migrate - product-service
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/product-service/src/main/resources/db/migration:/flyway/sql \
+            flyway/flyway:9.22.3 \
+            -url=jdbc:mysql://host.docker.internal:3306/ecommerce_db \
+            -user=${{ secrets.MYSQL_USER }} \
+            -password=${{ secrets.MYSQL_PASSWORD }} \
+            -locations=filesystem:/flyway/sql \
+            -schemas=product_service \
+            -baselineOnMigrate=false \
+            migrate
+
+      # ✅ GitHub Actions로 Flyway 자동화
+      - name: Run Flyway migration - user-service
+        run: |
+          docker run --rm \
+          -v ${{ github.workspace }}/user-service/src/main/resources/db/migration:/flyway/sql \
+          flyway/flyway:11.8.2 \
+          -url=jdbc:mysql://host.docker.internal:3306/ecommerce_db \
+          -user=root \
+          -password=root \
+          migrate

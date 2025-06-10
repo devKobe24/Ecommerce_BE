@@ -1,0 +1,38 @@
+plugins {
+    id 'org.springframework.boot' version '3.2.5'
+    id 'java'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+    // ✅ PreAuthorize 사용을 위한 AOP 기반 권한 처리
+    implementation 'org.springframework.security:spring-security-config'
+    implementation 'org.springframework.security:spring-security-core'
+
+    // ✅ Swagger 등 필요한 경우
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation project(':common-library')
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+bootJar {
+    enabled = true
+    archiveFileName = 'app.jar'
+}

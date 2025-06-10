@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.kobe'
+version = '1.0.0'
+sourceCompatibility = '21'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // ✅ Spring Boot 핵심 기능
+    implementation 'org.springframework.boot:spring-boot-starter:3.2.5'
+
+    // ✅ ConfigurationProperties 자동 바인딩
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // ✅ 비밀번호 해싱용
+    implementation 'org.springframework.security:spring-security-crypto:6.2.2'
+
+    // ✅ 공통 모듈 참조
+    implementation project(':common-library')
+}
+
+application {
+    mainClass = project.hasProperty("mainClass") ? project.getProperty("mainClass") : 'com.kobe.util.SnowflakePrinterApplication'
+}

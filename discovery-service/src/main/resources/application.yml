@@ -1,0 +1,11 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: discovery-service
+
+eureka:
+  client:
+    register-with-eureka: false # 자신을 다른 서버에 등록하지 않은
+    fetch-registry: false # 다른 서비스 목록도 받아오지 않음 -> 이 자체가 "등록 서버"이므로

@@ -1,0 +1,12 @@
+-- V1__create_user_table.sql
+-- 사용자 테이블 생성
+
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT PRIMARY KEY COMMENT '사용자 ID (Snowflake)',
+    email VARCHAR(100) NOT NULL UNIQUE COMMENT '이메일',
+    password VARCHAR(255) NOT NULL COMMENT '비밀번호 (BCrypt)',
+    name VARCHAR(50) NOT NULL COMMENT '사용자 이름',
+    role VARCHAR(20) NOT NULL DEFAULT 'USER' COMMENT '권한 (USER / ADMIN)',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '가입일',
+    updated_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='사용자 정보';

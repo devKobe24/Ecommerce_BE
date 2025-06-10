@@ -1,0 +1,15 @@
+-- V1__create_product_table.sql
+-- 상품 테이블 생성
+
+CREATE TABLE IF NOT EXISTS products (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '상품 ID',
+    name VARCHAR(100) NOT NULL COMMENT '상품명',
+    price INT NOT NULL COMMENT '가격 (원)',
+    description VARCHAR(1000) COMMENT '상품 설명 (최대 1000자)',
+    stock_quantity INT NOT NULL DEFAULT 0 COMMENT '재고 수량',
+    image_url VARCHAR(255) DEFAULT NULL COMMENT '상품 이미지 URL',
+    category VARCHAR(50) DEFAULT NULL COMMENT '카테고리명',
+    active BOOLEAN NOT NULL DEFAULT TRUE COMMENT '상품 활성 상태',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일',
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='상품 정보';

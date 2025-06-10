@@ -1,0 +1,67 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+            - Path=/api/auth/**
+          filters:
+            - name: AuthFilter
+
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/products/**
+          filters:
+            - name: AuthFilter
+
+        - id: user-service-swagger
+          uri: lb://user-service
+          predicates:
+            - Path=/v3/user-service/api-docs
+          filters:
+            - RewritePath=/v3/user-service/api-docs, /v3/api-docs
+
+        - id: product-service-swagger
+          uri: lb://product-service
+          predicates:
+            - Path=/v3/product-service/api-docs
+          filters:
+            - RewritePath=/v3/product-service/api-docs, /v3/api-docs
+
+      # ✅ CORS 제한 설정 (실제 배포 도메인만 허용)
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - https://your-frontend-domain.com
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - Authorization
+              - Content-Type
+            allowCredentials: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: WARN
+    org.springframework.security: WARN
