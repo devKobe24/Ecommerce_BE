@@ -13,7 +13,7 @@ import java.util.List;
 public interface UserServiceClient {
 
 	@GetMapping("/users")
-	ResponseEntity<List<UserResponseDto>> getAllUsers(@RequestHeader("Authorization") String jwt);
+	ResponseEntity<List<UserResponseDto>> getAllUsers();
 
 	@PostMapping("/users")
 	ResponseEntity<Void> createUserByAdmin(@RequestBody AdminCreateUserRequestDto request);
