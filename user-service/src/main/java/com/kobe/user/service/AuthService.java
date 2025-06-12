@@ -110,7 +110,7 @@ public class AuthService {
 			.orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
 		// 5. 새 Access Token 생성
-		String newAccessToken = jwtProvider.createAccessToken(user.getId(), user.getRole());
+		String newAccessToken = jwtProvider.createAccessToken(user.getId(), user.getEmail(), user.getRole());
 
 		// (선택) Refresh Token 재사용 or 재발급
 		return new LoginResponseDto(newAccessToken, refreshToken);
