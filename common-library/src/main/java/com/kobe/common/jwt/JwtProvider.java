@@ -23,6 +23,7 @@ public class JwtProvider {
 
 	private final JwtProperties jwtProperties;
 	private Key key;
+	private final Map<TokenType, Long> expirationTime = new EnumMap<>(TokenType.class);
 
 	@PostConstruct
 	public void initKey() {
