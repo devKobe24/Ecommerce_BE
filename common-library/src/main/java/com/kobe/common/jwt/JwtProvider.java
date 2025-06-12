@@ -28,6 +28,8 @@ public class JwtProvider {
 	@PostConstruct
 	public void initKey() {
 		this.key = Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes());
+		expirationTime.put(TokenType.ACCESS, jwtProperties.getAccessTokenExpirationMillis());
+		expirationTime.put(TokenType.REFRESH, jwtProperties.getRefreshTokenExpirationMillis());
 	}
 
 	// ✅ 공동 토큰 생성 메서드
