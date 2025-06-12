@@ -125,19 +125,4 @@ public class JwtProvider {
 		Date expiration = parseClaims(token).getExpiration();
 		return expiration.getTime() - System.currentTimeMillis();
 	}
-
-	// ✅ 사용자용 API
-	public String createAccessToken(Long userId, Role role) {
-		CustomUserPrincipal principal = new CustomUserPrincipal(userId, null, role);
-		return generateToken(principal, TokenType.ACCESS);
-	}
-
-	public String createRefreshToken(Long userId) {
-		CustomUserPrincipal principal = new CustomUserPrincipal(userId, null, Role.USER); // 기본 Role 지정
-		return generateToken(principal, TokenType.REFRESH);
-	}
-
-	public Long getUserIdAsLong(String token) {
-		return Long.parseLong(getUserId(token));
-	}
 }
