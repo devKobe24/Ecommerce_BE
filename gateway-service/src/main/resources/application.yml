@@ -1,4 +1,10 @@
+server:
+  port: 8080
+
 spring:
-  profiles:
-    active: local
+  application:
+    name: gateway-service
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
 
