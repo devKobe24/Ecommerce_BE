@@ -33,7 +33,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			CustomUserPrincipal principal = new CustomUserPrincipal(
 				Long.parseLong(claims.getSubject()),
 				claims.get("email", String.class),
-				Role.valueOf(claims.get("role", String.class)) // ✅ enum으로 변환
+				Role.valueOf(claims.get("role", String.class)),
+				token // ✅ 토큰 추가
 			);
 
 			UsernamePasswordAuthenticationToken authenticationToken =
