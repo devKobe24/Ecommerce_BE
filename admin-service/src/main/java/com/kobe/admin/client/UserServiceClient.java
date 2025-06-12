@@ -22,8 +22,8 @@ public interface UserServiceClient {
 	ResponseEntity<Void> createAdmin(@RequestBody AdminCreateAdminRequestDto request);
 
 	@GetMapping("/users/{userId}")
-	ResponseEntity<UserResponseDto> getUserById(@PathVariable("userId") Long userId, @RequestHeader("Authorization") String jwt);
+	ResponseEntity<UserResponseDto> getUserById(@PathVariable("userId") Long userId);
 
 	@DeleteMapping("/users/{userId}")
-	ResponseEntity<Void> deleteUserById(@PathVariable("userId") Long userId, @RequestHeader("Authorization") String jwt);
+	ResponseEntity<Void> deleteUserById(@PathVariable("userId") Long userId);
 }
