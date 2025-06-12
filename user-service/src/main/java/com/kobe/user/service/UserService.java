@@ -47,6 +47,7 @@ public class UserService {
 			.build();
 
 		userRepository.save(user);
+		return id;
 	}
 
 	@Transactional(readOnly = true)
