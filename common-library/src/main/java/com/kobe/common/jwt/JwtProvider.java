@@ -105,6 +105,18 @@ public class JwtProvider {
 		return parseClaims(token).getSubject();
 	}
 
+	public Long getUserIdAsLong(String token) {
+		return Long.parseLong(getUserId(token));
+	}
+
+	public String getEmail(String token) {
+		return parseClaims(token).get("email", String.class);
+	}
+
+	public Role getRole(String token) {
+		return Role.valueOf(parseClaims(token).get("role", String.class));
+	}
+
 	public String getJti(String token) {
 		return parseClaims(token).getId();
 	}
