@@ -38,8 +38,8 @@ public class AdminService {
 	}
 
 	// ✅ 사용자 삭제
-	public void deleteUser(Long userId, String jwt) {
-		ResponseEntity<Void> response = userServiceClient.deleteUserById(userId, jwt);
+	public void deleteUser(Long userId) {
+		ResponseEntity<Void> response = userServiceClient.deleteUserById(userId);
 		handleVoidResponse(response, "유저 삭제 실패");
 	}
 
