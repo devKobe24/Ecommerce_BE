@@ -30,7 +30,8 @@ public class UserService {
 			.orElseThrow(() -> new CustomException(UserErrorCode.USER_NOT_FOUND));
 	}
 
-	public void createUserByAdmin(AdminCreateUserRequestDto request) {
+	@Transactional
+	public Long createUserByAdmin(AdminCreateUserRequestDto request) {
 		Long id = idGenerator.nextId();
 
 		if (userRepository.existsByEmail(request.getEmail())) {
