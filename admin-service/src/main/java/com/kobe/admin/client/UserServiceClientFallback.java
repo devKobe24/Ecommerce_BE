@@ -21,8 +21,8 @@ public class UserServiceClientFallback implements UserServiceClient {
 	}
 
 	@Override
-	public ResponseEntity<Void> createUserByAdmin(AdminCreateUserRequestDto request) {
-		log.warn("⚠️ UserServiceClientFallback#createUser");
+	public ResponseEntity<Long> createUserByAdmin(AdminCreateUserRequestDto request) {
+		log.error("❌ [Fallback] createUserByAdmin 실패 - 요청: {}", request);
 		return ResponseEntity.status(503).build();
 	}
 
