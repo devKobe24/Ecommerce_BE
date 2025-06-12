@@ -32,6 +32,9 @@ public class JwtProvider {
 		expirationTime.put(TokenType.REFRESH, jwtProperties.getRefreshTokenExpirationMillis());
 	}
 
+	/**
+	 * JWT 생성
+	 */
 	// ✅ 공동 토큰 생성 메서드
 	public String generateToken(CustomUserPrincipal principal, TokenType tokenType) {
 		long expiration = expirationTime.getOrDefault(tokenType, 0L);
