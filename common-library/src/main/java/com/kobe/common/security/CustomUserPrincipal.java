@@ -19,6 +19,7 @@ public class CustomUserPrincipal implements UserDetails {
 	private final Long id;
 	private final String email;
 	private final Role role;
+	private final String token; // ✅ JWT 저장용 필드
 
 	@Override
 	public boolean isAccountNonExpired() {
