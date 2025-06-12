@@ -26,8 +26,8 @@ public class AdminService {
 	}
 
 	// ✅ 특정 사용자 상세 조회
-	public UserResponseDto getUserById(Long userId, String jwt) {
-		ResponseEntity<UserResponseDto> response = userServiceClient.getUserById(userId, jwt);
+	public UserResponseDto getUserById(Long userId) {
+		ResponseEntity<UserResponseDto> response = userServiceClient.getUserById(userId);
 		return handleResponse(response, "유저 상세 조회 실패");
 	}
 
