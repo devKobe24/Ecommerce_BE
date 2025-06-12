@@ -51,6 +51,35 @@ public class JwtProvider {
 			.compact();
 	}
 
+	/**
+	 * AccessToken 생성
+	 */
+	public String createAccessToken(Long userId, String email, Role role) {
+		CustomUserPrincipal principal = CustomUserPrincipal.builder()
+			.id(userId)
+			.email(email)
+			.role(role)
+			.token(null)
+			.build();
+		return generateToken(principal, TokenType.ACCESS);
+	}
+
+	/**
+	 * RefreshToken 생성
+	 */
+	public String createRefreshToken(Long userId, String email, Role role) {
+		CustomUserPrincipal principal = CustomUserPrincipal.builder()
+			.id(userId)
+			.email(email)
+			.role(role)
+			.token(null)
+			.build();
+		return generateToken(principal, TokenType.REFRESH);
+	}
+
+	/**
+	 * JWT 파싱
+	 */
 	public Claims parseClaims(String token) {
 		return Jwts.parserBuilder()
 			.setSigningKey(key)
