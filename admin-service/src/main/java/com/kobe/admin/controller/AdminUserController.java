@@ -37,9 +37,8 @@ public class AdminUserController {
 
 	// ✅ 특정 유저 조회
 	@GetMapping("/{userId}")
-	public ResponseEntity<UserResponseDto> getUser(@PathVariable Long userId, @RequestHeader("Authorization") String authHeader) {
-		String token = extractToken(authHeader);
-		UserResponseDto user = adminService.getUserById(userId, token);
+	public ResponseEntity<UserResponseDto> getUser(@PathVariable Long userId) {
+		UserResponseDto user = adminService.getUserById(userId);
 		return ResponseEntity.ok(user);
 	}
 
