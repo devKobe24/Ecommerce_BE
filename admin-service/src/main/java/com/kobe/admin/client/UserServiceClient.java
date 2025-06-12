@@ -16,7 +16,7 @@ public interface UserServiceClient {
 	ResponseEntity<List<UserResponseDto>> getAllUsers();
 
 	@PostMapping("/users")
-	ResponseEntity<Void> createUserByAdmin(@RequestBody AdminCreateUserRequestDto request);
+	ResponseEntity<Long> createUserByAdmin(@RequestBody AdminCreateUserRequestDto request);
 
 	@PostMapping("/admins")
 	ResponseEntity<Void> createAdmin(@RequestBody AdminCreateAdminRequestDto request);
