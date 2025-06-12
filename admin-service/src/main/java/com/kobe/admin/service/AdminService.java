@@ -20,8 +20,8 @@ public class AdminService {
 	private final UserServiceClient userServiceClient;
 
 	// ✅ 전체 사용자 목록 조회
-	public List<UserResponseDto> getAllUsers(String jwt) {
-		ResponseEntity<List<UserResponseDto>> response = userServiceClient.getAllUsers(jwt);
+	public List<UserResponseDto> getAllUsers() {
+		ResponseEntity<List<UserResponseDto>> response = userServiceClient.getAllUsers();
 		return handleResponse(response, "유저 목록 조회 실패");
 	}
 
