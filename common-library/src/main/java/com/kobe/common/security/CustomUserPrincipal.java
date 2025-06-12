@@ -2,6 +2,7 @@ package com.kobe.common.security;
 
 import com.kobe.common.model.Role;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
+@Builder
 public class CustomUserPrincipal implements UserDetails {
 
 	private final Long id;
