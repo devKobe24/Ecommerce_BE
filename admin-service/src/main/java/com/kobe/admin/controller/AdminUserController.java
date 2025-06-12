@@ -2,6 +2,7 @@ package com.kobe.admin.controller;
 
 import com.kobe.admin.dto.request.AdminCreateUserRequestDto;
 import com.kobe.admin.service.AdminService;
+import com.kobe.common.dto.response.CommonApiResponse;
 import com.kobe.common.dto.response.UserResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
