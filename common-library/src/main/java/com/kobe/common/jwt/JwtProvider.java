@@ -34,9 +34,7 @@ public class JwtProvider {
 
 	// ✅ 공동 토큰 생성 메서드
 	public String generateToken(CustomUserPrincipal principal, TokenType tokenType) {
-		long expiration = tokenType == TokenType.ACCESS
-			? jwtProperties.getAccessTokenExpiration().toMillis()
-			:jwtProperties.getRefreshTokenExpiration().toMillis();
+		long expiration = expirationTime.getOrDefault(tokenType, 0L);
 
 		return Jwts.builder()
 			.setSubject(String.valueOf(principal.getId()))
