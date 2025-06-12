@@ -44,9 +44,8 @@ public class AdminUserController {
 
 	// ✅ 유저 삭제
 	@DeleteMapping("/{userId}")
-	public ResponseEntity<Void> deleteUser(@PathVariable Long userId, @RequestHeader("Authorization") String authHeader) {
-		String token = extractToken(authHeader);
-		adminService.deleteUser(userId, token);
+	public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+		adminService.deleteUser(userId);
 		return ResponseEntity.noContent().build();
 	}
 
