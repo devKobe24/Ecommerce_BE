@@ -39,9 +39,9 @@ public class InternalAdminController {
 
 	// ✅ 일반 사용자 생성 (관리자에 의하여)
 	@PostMapping("/users")
-	public ResponseEntity<Void> createUserByAdmin(@Valid @RequestBody AdminCreateUserRequestDto request) {
-		userService.createUserByAdmin(request);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<Long> createUserByAdmin(@Valid @RequestBody AdminCreateUserRequestDto request) {
+		Long userId = userService.createUserByAdmin(request); // userService가 userId 반환
+		return ResponseEntity.ok(userId);
 	}
 
 	// ✅ 특정 사용자 조회
