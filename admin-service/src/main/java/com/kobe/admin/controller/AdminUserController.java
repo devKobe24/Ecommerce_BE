@@ -21,9 +21,10 @@ public class AdminUserController {
 
 	// ✅ 유저 전체 조회
 	@GetMapping
-	public ResponseEntity<List<UserResponseDto>> getAllUsers(@RequestHeader("Authorization") String authHeader) {
-		String token = extractToken(authHeader);
-		return ResponseEntity.ok(adminService.getAllUsers(token));
+	public ResponseEntity<CommonApiResponse<List<UserResponseDto>>> getAllUsers() {
+		List<UserResponseDto> users = adminService.getAllUsers();
+		return ResponseEntity.ok(CommonApiResponse.success(users));
+
 	}
 
 	// ✅ 유저 생성
