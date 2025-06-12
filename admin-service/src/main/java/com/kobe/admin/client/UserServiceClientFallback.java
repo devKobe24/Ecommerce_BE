@@ -15,9 +15,8 @@ import java.util.List;
 public class UserServiceClientFallback implements UserServiceClient {
 
 	@Override
-	public ResponseEntity<List<UserResponseDto>> getAllUsers(String jwt) {
-		// fallback 응답: 비어 있는 목록과 503 응답
-		log.warn("⚠️ UserServiceClientFallback#getAllUsers: 유저 서비스 접근 불가");
+	public ResponseEntity<List<UserResponseDto>> getAllUsers() {
+		log.error("❌ [Fallback] getAllUsers 실패");
 		return ResponseEntity.status(503).body(Collections.emptyList());
 	}
 
