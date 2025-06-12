@@ -32,9 +32,9 @@ public class AdminService {
 	}
 
 	// ✅ 일반 사용자 생성
-	public void createUser(AdminCreateUserRequestDto request) {
-		ResponseEntity<Void> response = userServiceClient.createUserByAdmin(request);
-		handleVoidResponse(response, "유저 생성 실패");
+	public Long createUser(AdminCreateUserRequestDto request) {
+		ResponseEntity<Long> response = userServiceClient.createUserByAdmin(request);
+		return handleResponse(response, "유저 생성 실패");
 	}
 
 	// ✅ 사용자 삭제
