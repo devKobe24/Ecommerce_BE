@@ -38,20 +38,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		HttpServletResponse response,
 		FilterChain filterChain
 	) throws ServletException, IOException {
+		try {
+			String token = resolveToken(request);
 
-		String token = resolveToken(request);
-		if (token != null && jwtProvider.validateToken(token)) {
-			Claims claims = jwtProvider.parseClaims(token);
-			CustomUserPrincipal principal = new CustomUserPrincipal(
-				Long.parseLong(claims.getSubject()),
-				claims.get("email", String.class),
-				Role.valueOf(claims.get("role", String.class)),
-				token // ✅ 토큰 추가
-			);
+			if (token != null && jwtProvider.validateToken(token) && !blacklistChecker.isBlacklisted(token)) {
+				Claims claims = jwtProvider.parseClaims(token);
 
-			UsernamePasswordAuthenticationToken authenticationToken =
-				new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
-			SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+				CustomUserPrincipal principal = CustomUserPrincipal.builder()
+					.id(Long.parseLong(claims.getSubject()))
+					.email(claims.get("email", String.class))
+					.role(Role.valueOf(claims.get("role", String.class)))
+					.token(token)
+					.build();
+
+				var authentication = new UsernamePasswordAuthenticationToken(
+					principal, null, principal.getAuthorities()
+				);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
+		} catch (ExpiredJwtException e) {
+			log.warn("⏰ 만료된 토큰입니다.: {}", e.getMessage());
+		} catch (JwtException | IllegalArgumentException e) {
+			log.warn("⚠️ 유효하지 않은 JWT입니다: {}", e.getMessage());
+		} catch (Exception e) {
+			log.error("🚨 JWT 필터 처리 중 예외 발생: {}", e.getMessage(), e);
 		}
 
 		filterChain.doFilter(request, response);
