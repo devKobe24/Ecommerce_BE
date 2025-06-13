@@ -12,10 +12,7 @@ import java.time.Duration;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class JwtBlacklistService {
-
-	private static final String BLACKLIST = "blacklist:";
-	private static final String VALUE = "logout";
+public class JwtBlacklistService implements JwtBlacklistChecker {
 
 	private final StringRedisTemplate redisTemplate;
 	private final JwtProvider jwtProvider;
