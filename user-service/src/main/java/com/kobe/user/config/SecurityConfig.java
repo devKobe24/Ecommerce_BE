@@ -25,6 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
 	private final JwtProvider jwtProvider;
+	private final JwtBlacklistService jwtBlacklistService;
 
 	// ✅ Security Filter Chain 설정
 	@Bean
