@@ -68,7 +68,7 @@ public class AdminUserController {
 		}
 	)
 	@GetMapping("/{userId}")
-	public ResponseEntity<UserResponseDto> getUser(@PathVariable Long userId) {
+	public ResponseEntity<UserResponseDto> getUser(@Parameter(description = "유저 ID", required = true) @PathVariable Long userId) {
 		UserResponseDto user = adminService.getUserById(userId);
 		return ResponseEntity.ok(user);
 	}
