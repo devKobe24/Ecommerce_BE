@@ -21,6 +21,16 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	private final JwtProvider jwtProvider;
+	private final JwtBlacklistChecker blacklistChecker; // ✅ 인터페이스 기반 주입
+
+	public JwtAuthenticationFilter(JwtProvider jwtProvider, JwtBlacklistChecker blacklistChecker) {
+		this.jwtProvider = jwtProvider;
+		this.blacklistChecker = blacklistChecker;
+	}
+
+	public JwtAuthenticationFilter(JwtProvider jwtProvider) {
+		this(jwtProvider, token -> false); // 기본: 블랙리스트 체크 안함
+	}
 
 	@Override
 	protected void doFilterInternal(
