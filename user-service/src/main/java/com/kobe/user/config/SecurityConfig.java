@@ -32,7 +32,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		// ✅ JwtAuthenticationFilter를 직접 생성하여 사용
-		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtProvider);
+		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtProvider, jwtBlacklistService);
 
 		http
 			.csrf(csrf -> csrf.disable())
