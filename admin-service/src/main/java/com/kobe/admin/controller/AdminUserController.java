@@ -59,6 +59,14 @@ public class AdminUserController {
 	}
 
 	// ✅ 특정 유저 조회
+	@Operation(
+		summary = "특정 사용자 조회",
+		description = "ID로 특정 사용자의 정보를 조회합니다.",
+		responses = {
+			@ApiResponse(responseCode = "200", description = "유저 조회 성공"),
+			@ApiResponse(responseCode = "404", description = "해당 유저를 찾을 수 없음")
+		}
+	)
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserResponseDto> getUser(@PathVariable Long userId) {
 		UserResponseDto user = adminService.getUserById(userId);
