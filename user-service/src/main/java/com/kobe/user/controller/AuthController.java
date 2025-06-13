@@ -67,16 +67,18 @@ public class AuthController {
 	}
 
 	@PostMapping("/logout")
-	public ResponseEntity<?> logout(HttpServletRequest request) {
-		String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-		if (authHeader != null && authHeader.startsWith("Bearer ")) {
-			String token = authHeader.substring(7);
-			try {
-				jwtBlacklistService.blacklistToken(token);
-			} catch (ExpiredJwtException e) {
-				log.warn("⏰ 이미 만료된 토큰으로 로그아웃 요청됨. 블랙리스트 생략.");
-			}
+	public ResponseEntity<String> logout(@AuthenticationPrincipal CustomUserPrincipal principal) {
+		if (principal == null || principal.getToken() == null) {
+			throw new CustomException(UserErrorCode.UNAUTHORIZED);
 		}
+
+		try {
+			jwtBlacklistService.blacklistToken(principal.getToken());
+			log.info("✅ 로그아웃 완료: userId = {}, email {}", principal.getId(), principal.getEmail());
+		} catch (ExpiredJwtException e) {
+			log.warn("⏰ 이미 만료된 토큰으로 로그아웃 요청됨. 블랙리스트 등록 생략.");
+		}
+
 		return ResponseEntity.ok("로그아웃 완료");
 	}
 }
