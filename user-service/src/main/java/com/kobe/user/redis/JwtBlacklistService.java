@@ -17,7 +17,14 @@ public class JwtBlacklistService implements JwtBlacklistChecker {
 	private final StringRedisTemplate redisTemplate;
 	private final JwtProvider jwtProvider;
 
-	// ✅ jti 블랙리스트 등록
+	private static final String BLACKLIST_PREFIX = "blacklist:";
+
+	@Override
+	public boolean isBlacklisted(String token) {
+		String jti = jwtProvider.getJti(token);
+		return redisTemplate.hasKey(BLACKLIST_PREFIX + jti);
+	}
+
 	public void blacklistToken(String token) {
 		String jti = jwtProvider.getJti(token);
 		long expiration = jwtProvider.getRemainingTime(token);
