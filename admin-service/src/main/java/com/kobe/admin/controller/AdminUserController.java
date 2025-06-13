@@ -74,6 +74,14 @@ public class AdminUserController {
 	}
 
 	// ✅ 유저 삭제
+	@Operation(
+		summary = "사용자 삭제",
+		description = "관리자가 특정 사용자를 삭제합니다.",
+		responses = {
+			@ApiResponse(responseCode = "204", description = "삭제 성공"),
+			@ApiResponse(responseCode = "404", description = "유저를 찾을 수 없음")
+		}
+	)
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
 		adminService.deleteUser(userId);
