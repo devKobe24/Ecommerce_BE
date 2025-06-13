@@ -2,6 +2,7 @@ package com.kobe.user.config;
 
 import com.kobe.common.jwt.JwtAuthenticationFilter;
 import com.kobe.common.jwt.JwtProvider;
+import com.kobe.user.redis.JwtBlacklistService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
