@@ -1,5 +1,6 @@
 package com.kobe.user.redis;
 
+import com.kobe.common.jwt.JwtBlacklistChecker;
 import com.kobe.common.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
