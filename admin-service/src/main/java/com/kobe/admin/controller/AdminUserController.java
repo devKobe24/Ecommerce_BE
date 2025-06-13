@@ -52,7 +52,7 @@ public class AdminUserController {
 		}
 	)
 	@PostMapping
-	public ResponseEntity<CommonApiResponse<String>> createUser(@Valid @RequestBody AdminCreateUserRequestDto request) {
+	public ResponseEntity<CommonApiResponse<String>> createUser(@Valid @RequestBody @Parameter(description = "생성할 유저 정보", required = true) AdminCreateUserRequestDto request) {
 		Long userId = adminService.createUser(request);
 		URI location = URI.create("/api/admin/users/" + userId);
 		return ResponseEntity.created(location).body(CommonApiResponse.success("유저가 성공적으로 생성되었습니다."));
