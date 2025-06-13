@@ -43,6 +43,14 @@ public class AdminUserController {
 	}
 
 	// ✅ 유저 생성
+	@Operation(
+		summary = "사용자 생성",
+		description = "관리자가 새로운 사용자를 생성합니다.",
+		responses = {
+			@ApiResponse(responseCode = "201", description = "유저 생성 성공"),
+			@ApiResponse(responseCode = "400", description = "요청 바디 오류")
+		}
+	)
 	@PostMapping
 	public ResponseEntity<CommonApiResponse<String>> createUser(@Valid @RequestBody AdminCreateUserRequestDto request) {
 		Long userId = adminService.createUser(request);
