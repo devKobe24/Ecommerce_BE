@@ -27,6 +27,14 @@ public class AdminUserController {
 	private final AdminService adminService;
 
 	// ✅ 유저 전체 조회
+	@Operation(
+		summary = "전체 사용자 조회",
+		description = "관리자가 전체 유저 목록을 조회합니다.",
+		responses = {
+			@ApiResponse(responseCode = "200", description = "성공적으로 유저 목록을 반환합니다."),
+			@ApiResponse(responseCode = "403", description = "관리자 권한 없음")
+		}
+	)
 	@GetMapping
 	public ResponseEntity<CommonApiResponse<List<UserResponseDto>>> getAllUsers() {
 		List<UserResponseDto> users = adminService.getAllUsers();
