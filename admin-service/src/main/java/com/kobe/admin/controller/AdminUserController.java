@@ -21,6 +21,7 @@ import java.util.List;
 @RequestMapping("/api/admin/users")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ADMIN')") // ✅ 클래스 단위로 권한 제어
+@Tag(name = "Admin User Management", description = "관리자 전용 사용자 관리 API")
 public class AdminUserController {
 
 	private final AdminService adminService;
