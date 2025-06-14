@@ -2,13 +2,10 @@ package com.kobe.user.controller;
 
 import com.kobe.common.dto.response.UserResponseDto;
 import com.kobe.common.security.CustomUserPrincipal;
-import com.kobe.user.entity.User;
-
 import com.kobe.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
