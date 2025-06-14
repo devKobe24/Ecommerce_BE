@@ -39,6 +39,14 @@ public class SecurityConfig {
 			.cors(cors -> cors.configure(http)) // 필요시 WebMvcConfigurer에서 CORS 세부설정
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authorizeHttpRequests(auth -> auth
+				.requestMatchers(
+					"/swagger-ui/**",
+					"/swagger-ui.html",
+					"/v3/api-docs/**",
+					"/v3/api-docs",
+					"/swagger-resources/**",
+					"/webjars/**"
+				).permitAll()
 				.requestMatchers("/api/auth/**").permitAll()
 				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Preflight 요청 허용
 				.anyRequest().authenticated()
