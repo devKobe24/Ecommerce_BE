@@ -42,3 +42,6 @@ out/
 ### .yml ###
 application-docker.yml
 application-local.yml
+
+### .DS_Store ###
+.DS_Store
